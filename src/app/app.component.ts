@@ -470,12 +470,14 @@ export class AppComponent implements OnInit {
     }
   ];
   ngOnInit(){
+    // organizational tree
     const tree = document.getElementById('tree');
             if (tree) {
                 var chart = new OrgChart(tree, {
                     nodeBinding: {
                     field_0: "name",
-                    img_0: "img"
+                    field_1: "title",
+                    img_0: "img",
                     },
                 });
 
