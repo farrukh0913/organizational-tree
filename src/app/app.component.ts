@@ -469,32 +469,33 @@ export class AppComponent implements OnInit {
       ]
     }
   ];
+
   ngOnInit(){
     // organizational tree
+    OrgChart.templates.ana.field_2 =
+        '<text class="field_2" style="font-size: 14px;" fill="#ffffff" x="125" y="70" text-anchor="middle">{val}</text>';
+    // OrgChart.templates.myTemplate.field_2 = '<text style="font-size: 16px;" fill="#ffffff" x="100" y="60" text-anchor="middle">{val}</text>';
     const tree = document.getElementById('tree');
             if (tree) {
                 var chart = new OrgChart(tree, {
                     nodeBinding: {
                     field_0: "name",
                     field_1: "title",
-                    img_0: "img",
-                    },
+                    field_2: "salary",
+                    img_0: "img"
+                    }
                 });
 
                 chart.load([
-          { id: 1, name: "Farrukh Shahzad", title: "Developer", img: "/assets/farrukh.png" },
-                                { id: 2, pid: 1, name: "Rizwan Shah", title: "Sales Manager", img: "/assets/user2.svg" },
-                                { id: 3, pid: 1, name: "Adeel Meo", title: "Dev Manager", img: "/assets/user2.svg" },
-                                { id: 4, pid: 2, name: "Ehaan Meo", title: "Sales", img: "/assets/user2.svg" },
-                                { id: 5, pid: 2, name: "Fayha Khurram", title: "Sales", img: "/assets/user2.svg" },
-                                { id: 6, pid: 3, name: "Haider Amir", title: "Developer", img: "/assets/user2.svg" },
-                                { id: 7, pid: 3, name: "Amir Khan", title: "Developer", img: "/assets/user2.svg" }
+          { id: 1, name: "Farrukh Shahzad", title: "Developer", salary:"Salary: 20000", img: "/assets/farrukh.png" },
+                                { id: 2, pid: 1, name: "Rizwan Shah", title: "Sales Manager", salary:"Salary: 20000",  img: "/assets/user2.svg" },
+                                { id: 3, pid: 1, name: "Adeel Meo", title: "Dev Manager", salary:"Salary: 100000",  img: "/assets/user2.svg" },
+                                { id: 4, pid: 2, name: "Ehaan Meo", title: "Sales", salary:"Salary: 300000",  img: "/assets/user2.svg" },
+                                { id: 5, pid: 2, name: "Fayha Khurram", title: "Sales", salary:"Salary: 40000",  img: "/assets/user2.svg" },
+                                { id: 6, pid: 3, name: "Haider Amir", title: "Developer", salary:"Salary: 50000",  img: "/assets/user2.svg" },
+                                { id: 7, pid: 3, name: "Amir Khan", title: "Developer", salary:"Salary: 80000",  img: "/assets/user2.svg" }
                 ]);
             }
-  }
-
-  test(element: any){
-    console.log('element :>> ', element);
   }
 
 }
