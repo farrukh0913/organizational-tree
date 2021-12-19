@@ -2,6 +2,7 @@ p {
     font-family: Lato;
   }
   
+  // tree design customization
   :host ::ng-deep{
     [data-n-id] rect {
     fill: #fff;
