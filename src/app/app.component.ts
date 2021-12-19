@@ -1,501 +1,56 @@
-import {
-  BEOrgchartComponent,
-  ID3Node,
-  INodesJson,
-  ID3OrgChartOptions
-} from 'be-orgchart';
-
-// Required only of nodes are requested via hhtp request
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import OrgChart from "@balkangraph/orgchart.js";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ]
+  styleUrls: [ './app.component.scss' ]
 })
 export class AppComponent implements OnInit {
-  constructor(protected http: HttpClient) { }
-  data: any[] = [
-    {
-      "nodeId": "root",
-      "parentNodeId": "",
-      "nodeImage": {
-        "type": "icon",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "name": "faSitemap",
-        "scale": 0.6
-      },
-      "title": "BE Orgchart",
-      "description": "Expand for caracteristics",
-      "expanded": false
-    },
-    {
-      "nodeId": "id01",
-      "parentNodeId": "root",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faCogs",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Configurable",
-      "description": "See below",
-      "childrenDist": "vertical"
-    },
-    {
-      "nodeId": "id0101",
-      "parentNodeId": "id01",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faPaintRoller",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Background Color",
-      "description": "Press here to see",
-      "childrenDist": "vertical"
-    },
-    {
-      "nodeId": "id0102",
-      "parentNodeId": "id01",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faFont",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Default Font",
-      "description": "Press here to see"
-    },
-    {
-      "nodeId": "id0103",
-      "parentNodeId": "id01",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faArrowsAltH",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Change nodes separation",
-      "description": "Press here to see",
-      "childrenDist": "vertical"
-    },
-    {
-      "nodeId": "id02",
-      "parentNodeId": "root",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faSquare",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Canvas",
-      "description": "On canvas....",
-      "childrenDist": "vertical"
-    },
-    {
-      "nodeId": "id0201",
-      "parentNodeId": "id02",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faArrowsAlt",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Draggable",
-      "description": "You can simply move it"
-    },
-    {
-      "nodeId": "id0202",
-      "parentNodeId": "id02",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faExpand",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Fitable",
-      "description": "Press fit button... (UP-LEFT)"
-    },
-    {
-      "nodeId": "id0203",
-      "parentNodeId": "id02",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faExpand",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Zoomable",
-      "description": "Use the mouse wheel"
-    },
-    {
-      "nodeId": "id0204",
-      "parentNodeId": "id02",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faCompressArrowsAlt",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Center Node on Screen",
-      "description": "Double click on node"
-    },
-    {
-      "nodeId": "id03",
-      "parentNodeId": "root",
-      "expanded": false,
-      "nodeImage": {
-        "type": "link",
-        "data": "https://raw.githubusercontent.com/hdcolelia/be-orgchart/master/src/lib/assets/images/id02.png"
-      },
-      "title": "Juan Palomino",
-      "description": "Otro Gerente"
-    },
-    {
-      "nodeId": "id0301",
-      "parentNodeId": "id03",
-      "nodeImage": {
-        "type": "link",
-        "data": "https://raw.githubusercontent.com/hdcolelia/be-orgchart/master/src/lib/assets/images/id03.png"
-      },
-      "title": "Juan Perez",
-      "description": "Jefe"
-    },
-    {
-      "nodeId": "id0302",
-      "parentNodeId": "id03",
-      "title": "Juan Perez",
-      "description": "Jefe"
-    },
-    {
-      "nodeId": "id010101",
-      "parentNodeId": "id0101",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faArrowsAlt",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Juan Perez 02",
-      "description": "Jefe 02"
-    },
-    {
-      "nodeId": "id010102",
-      "parentNodeId": "id0101",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faExpand",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Juan Perez 03",
-      "description": "Jefe 03"
-    },
-    {
-      "nodeId": "id010103",
-      "parentNodeId": "id0101",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faExpand",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Zoomable",
-      "description": "Use the mouse wheel"
-    },
-    {
-      "nodeId": "id010104",
-      "parentNodeId": "id0101",
-      "title": "Juan Perez 06",
-      "description": "Jefe 05"
-    },
-    {
-      "nodeId": "id04",
-      "parentNodeId": "root",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faCompressArrowsAlt",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Vertical Child",
-      "description": "Only applies if is the last branch",
-      "childrenDist": "vertical"
-    },
-    {
-      "nodeId": "id0401",
-      "parentNodeId": "id04",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faArrowsAlt",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Draggable",
-      "description": "You can simply move it"
-    },
-    {
-      "nodeId": "id0402",
-      "parentNodeId": "id04",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faExpand",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Fitable",
-      "description": "Press fit button... (UP-LEFT)"
-    },
-    {
-      "nodeId": "id0403",
-      "parentNodeId": "id04",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faExpand",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Zoomable",
-      "description": "Use the mouse wheel"
-    },
-    {
-      "nodeId": "id0404",
-      "parentNodeId": "id04",
-      "nodeImage": {
-        "type": "icon",
-        "name": "faMask",
-        "backgroundColor": "#07BEB8",
-        "color": "#A9FFF7",
-        "scale": 0.6
-      },
-      "title": "Peter Petrelli",
-      "description": "The best Hero"
-    }
-  ];
-
-  nodes: any = [
-    {
-      name: 'Sundar Pichai',
-      cssClass: 'ngx-org-ceo',
-      image: '',
-      title: 'Chief Executive Officer',
-      childs: [
-        {
-          name: 'Thomas Kurian',
-          cssClass: 'ngx-org-ceo',
-          image: 'assets/user2.svg',
-          title: 'CEO, Google Cloud',
-        },
-        {
-          name: 'Susan Wojcicki',
-          cssClass: 'ngx-org-ceo',
-          image: 'assets/user2.svg',
-          title: 'CEO, YouTube',
-          childs: [
-            {
-              name: 'Beau Avril',
-              cssClass: 'ngx-org-head',
-              image: 'assets/user2.svg',
-              title: 'Global Head of Business Operations',
-              childs: []
-            },
-            {
-              name: 'Tara Walpert Levy',
-              cssClass: 'ngx-org-vp',
-              image: 'assets/user2.svg',
-              title: 'VP, Agency and Brand Solutions',
-              childs: []
-            },
-            {
-              name: 'Ariel Bardin',
-              cssClass: 'ngx-org-vp',
-              image: 'assets/user2.svg',
-              title: 'VP, Product Management',
-              childs: []
-            }
-          ]
-        },
-        {
-          name: 'Jeff Dean',
-          cssClass: 'ngx-org-head',
-          image: 'assets/user2.svg',
-          title: 'Head of Artificial Intelligence',
-          childs: [
-            {
-              name: 'David Feinberg',
-              cssClass: 'ngx-org-ceo',
-              image: 'assets/user2.svg',
-              title: 'CEO, Google Health',
-              childs: []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'Sundar Pichai',
-      cssClass: 'ngx-org-ceo',
-      image: 'assets/user2.svg',
-      title: 'Chief Executive Officer',
-      childs: [
-        {
-          name: 'Thomas Kurian',
-          cssClass: 'ngx-org-ceo',
-          image: 'assets/user2.svg',
-          title: 'CEO, Google Cloud',
-        },
-        {
-          name: 'Susan Wojcicki',
-          cssClass: 'ngx-org-ceo',
-          image: 'assets/user2.svg',
-          title: 'CEO, YouTube',
-          childs: [
-            {
-              name: 'Beau Avril',
-              cssClass: 'ngx-org-head',
-              image: 'assets/user2.svg',
-              title: 'Global Head of Business Operations',
-              childs: []
-            },
-            {
-              name: 'Tara Walpert Levy',
-              cssClass: 'ngx-org-vp',
-              image: 'assets/user2.svg',
-              title: 'VP, Agency and Brand Solutions',
-              childs: []
-            },
-            {
-              name: 'Ariel Bardin',
-              cssClass: 'ngx-org-vp',
-              image: 'assets/user2.svg',
-              title: 'VP, Product Management',
-              childs: []
-            }
-          ]
-        },
-        {
-          name: 'Jeff Dean',
-          cssClass: 'ngx-org-head',
-          image: 'assets/user2.svg',
-          title: 'Head of Artificial Intelligence',
-          childs: [
-            {
-              name: 'David Feinberg',
-              cssClass: 'ngx-org-ceo',
-              image: 'assets/user2.svg',
-              title: 'CEO, Google Health',
-              childs: []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'Sundar Pichai',
-      cssClass: 'ngx-org-ceo',
-      image: 'assets/user2.svg',
-      title: 'Chief Executive Officer',
-      childs: [
-        {
-          name: 'Thomas Kurian',
-          cssClass: 'ngx-org-ceo',
-          image: 'assets/user2.svg',
-          title: 'CEO, Google Cloud',
-        },
-        {
-          name: 'Susan Wojcicki',
-          cssClass: 'ngx-org-ceo',
-          image: 'assets/user2.svg',
-          title: 'CEO, YouTube',
-          childs: [
-            {
-              name: 'Beau Avril',
-              cssClass: 'ngx-org-head',
-              image: 'assets/user2.svg',
-              title: 'Global Head of Business Operations',
-              childs: []
-            },
-            {
-              name: 'Tara Walpert Levy',
-              cssClass: 'ngx-org-vp',
-              image: 'assets/user2.svg',
-              title: 'VP, Agency and Brand Solutions',
-              childs: []
-            },
-            {
-              name: 'Ariel Bardin',
-              cssClass: 'ngx-org-vp',
-              image: 'assets/user2.svg',
-              title: 'VP, Product Management',
-              childs: []
-            }
-          ]
-        },
-        {
-          name: 'Jeff Dean',
-          cssClass: 'ngx-org-head',
-          image: 'assets/user2.svg',
-          title: 'Head of Artificial Intelligence',
-          childs: [
-            {
-              name: 'David Feinberg',
-              cssClass: 'ngx-org-ceo',
-              image: 'assets/user2.svg',
-              title: 'CEO, Google Health',
-              childs: []
-            }
-          ]
-        }
-      ]
-    }
-  ];
+  constructor() { }
 
   ngOnInit(){
     // organizational tree
+    
+    this.treeCustomization();
+    this.orgTree();
+  }
+
+  treeCustomization(){
+    OrgChart.templates.ana.plus =
+            '<rect x="0" y="0" width="36" height="36" rx="50" ry="50" fill="green" stroke="#aeaeae" stroke-width="1"></rect>'
+        + '<line  x1="10" y1="18" x2="25" y2="18" stroke-width="2" stroke="#aeaeae"></line>'
+        + '<line x1="18" y1="9" x2="18" y2="27" stroke-width="2" stroke="#aeaeae"></line>'
+
+    OrgChart.templates.ana.minus =
+            '<rect x="0" y="0" width="36" height="36" rx="50" ry="50" fill="red" stroke="#aeaeae" stroke-width="1"></rect>'
+        + '<line x1="10" y1="18" x2="25" y2="18" stroke-width="2" stroke="#aeaeae"></line>'
     OrgChart.templates.ana.field_2 =
         '<text class="field_2" style="font-size: 14px;" fill="#ffffff" x="125" y="70" text-anchor="middle">{val}</text>';
-    // OrgChart.templates.myTemplate.field_2 = '<text style="font-size: 16px;" fill="#ffffff" x="100" y="60" text-anchor="middle">{val}</text>';
-    const tree = document.getElementById('tree');
-            if (tree) {
-                var chart = new OrgChart(tree, {
-                    nodeBinding: {
-                    field_0: "name",
-                    field_1: "title",
-                    field_2: "salary",
-                    img_0: "img"
-                    }
-                });
+  }
 
-                chart.load([
-          { id: 1, name: "Farrukh Shahzad", title: "Developer", salary:"Salary: 20000", img: "/assets/farrukh.png" },
-                                { id: 2, pid: 1, name: "Rizwan Shah", title: "Sales Manager", salary:"Salary: 20000",  img: "/assets/user2.svg" },
-                                { id: 3, pid: 1, name: "Adeel Meo", title: "Dev Manager", salary:"Salary: 100000",  img: "/assets/user2.svg" },
-                                { id: 4, pid: 2, name: "Ehaan Meo", title: "Sales", salary:"Salary: 300000",  img: "/assets/user2.svg" },
-                                { id: 5, pid: 2, name: "Fayha Khurram", title: "Sales", salary:"Salary: 40000",  img: "/assets/user2.svg" },
-                                { id: 6, pid: 3, name: "Haider Amir", title: "Developer", salary:"Salary: 50000",  img: "/assets/user2.svg" },
-                                { id: 7, pid: 3, name: "Amir Khan", title: "Developer", salary:"Salary: 80000",  img: "/assets/user2.svg" }
-                ]);
+  orgTree(){
+    const tree = document.getElementById('tree');
+    if (tree) {
+        var chart = new OrgChart(tree, {
+            nodeBinding: {
+            field_0: "name",
+            field_1: "title",
+            field_2: "salary",
+            img_0: "img"
             }
+        });
+
+        chart.load([
+  { id: 1, name: "Farrukh Shahzad", title: "Developer", salary:"Salary: 2000", img: "/assets/farrukh.png" },
+                        { id: 2, pid: 1, name: "Madiha Yasir", title: "Sales Manager", salary:"Salary: 2000",  img: "https://cdn.balkan.app/shared/anim/1.gif" },
+                        { id: 3, pid: 1, name: "Adeel Meo", title: "Dev Manager", salary:"Salary: 1000",  img: "/assets/user2.svg" },
+                        { id: 4, pid: 2, name: "Ehaan Meo", title: "Sales", salary:"Salary: 3000",  img: "/assets/user2.svg" },
+                        { id: 5, pid: 2, name: "Fayha Khurram", title: "Sales", salary:"Salary: 4000",  img: "/assets/user2.svg" },
+                        { id: 6, pid: 3, name: "Haider Amir", title: "Developer", salary:"Salary: 5000",  img: "/assets/user2.svg" },
+                        { id: 7, pid: 3, name: "Amir Khan", title: "Developer", salary:"Salary: 8000",  img: "/assets/user2.svg" }
+        ]);
+    }
   }
 
 }

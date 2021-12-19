@@ -1,0 +1,21 @@
+p {
+    font-family: Lato;
+  }
+  
+  :host ::ng-deep{
+    [data-n-id] rect {
+    fill: #fff;
+    color: black;
+    border-top: 10px solid greenyellow;
+    
+  }
+    text {
+        fill:black;
+    }  
+    .boc-input>input, .boc-input>select,
+    .boc-search .boc-input{
+      display: none;
+    }  
+
+}
+  

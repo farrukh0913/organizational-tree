@@ -1,7 +1,0 @@
-p {
-  font-family: Lato;
-}
-
-:host ::ng-deep [data-n-id='1'] rect {
-  fill: #750000;
-}
